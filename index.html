@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tokutei Study Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js" integrity="sha512-aqWQrtY+TCDxZhr1HlKWXZnAviLR0m7wMfyVaqMqO/0QYIPqFaL+eQxXpWRfW8Af8g0d5C4W8/btNImAPNOCgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Tokutei Study Hub</h1>
+      <p class="subtitle">Review and annotate the provided PDFs with search, notes, and flashcards.</p>
+    </div>
+    <div class="header-actions">
+      <label class="pdf-select-label">
+        Study set
+        <select id="pdf-select"></select>
+      </label>
+      <button id="reset-data" class="danger">Reset notes &amp; cards</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <section class="panel-section">
+        <h2>Document info</h2>
+        <p id="pdf-description" class="muted">Loading…</p>
+        <div class="stat-grid">
+          <div>
+            <div class="stat-label">Pages</div>
+            <div id="page-count" class="stat-value">0</div>
+          </div>
+          <div>
+            <div class="stat-label">Current page</div>
+            <div id="page-number" class="stat-value">1</div>
+          </div>
+        </div>
+        <div class="nav-controls">
+          <button id="prev-page">← Prev</button>
+          <button id="next-page">Next →</button>
+        </div>
+        <label class="slider-label">
+          Zoom
+          <input type="range" min="0.8" max="2" step="0.1" value="1.2" id="zoom-slider">
+        </label>
+      </section>
+
+      <section class="panel-section">
+        <h2>Search</h2>
+        <form id="search-form">
+          <input type="text" id="search-query" placeholder="Find keywords across the PDF" autocomplete="off">
+          <button type="submit">Search</button>
+        </form>
+        <div id="search-status" class="muted"></div>
+        <div id="search-results" class="search-results"></div>
+      </section>
+    </aside>
+
+    <section class="viewer">
+      <div class="viewer-header">
+        <div>
+          <h2 id="pdf-title">Loading…</h2>
+          <p class="muted" id="page-helper">Page 1 of 1</p>
+        </div>
+        <div class="page-jump">
+          <label>
+            Jump to page
+            <input type="number" id="page-input" min="1" value="1">
+          </label>
+          <button id="jump-button">Go</button>
+        </div>
+      </div>
+      <div class="canvas-wrapper">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <section class="panel-section">
+        <h2>Notes</h2>
+        <form id="note-form" class="stacked">
+          <label>
+            Note for page <span id="note-page-label">1</span>
+            <textarea id="note-text" rows="3" placeholder="Key points, reminders, or translations"></textarea>
+          </label>
+          <button type="submit">Save note</button>
+        </form>
+        <div id="notes-list" class="list"></div>
+      </section>
+
+      <section class="panel-section">
+        <h2>Flashcards</h2>
+        <form id="card-form" class="stacked">
+          <label>
+            Question
+            <input type="text" id="card-question" placeholder="e.g. 衛生管理の重要ポイントは？">
+          </label>
+          <label>
+            Answer
+            <textarea id="card-answer" rows="2" placeholder="Summarize the guidance from this page."></textarea>
+          </label>
+          <button type="submit">Add flashcard</button>
+        </form>
+        <div id="cards-list" class="list"></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="app-footer">
+    <p>Use the search to skim the PDFs quickly, then capture notes and flashcards to remember key details.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
